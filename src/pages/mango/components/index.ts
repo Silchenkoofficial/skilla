@@ -1,3 +1,4 @@
 import { Filters } from './filters';
+import { Table } from './table';
 
-export { Filters };
+export { Filters, Table };

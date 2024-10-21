@@ -1,24 +1,8 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { Filters } from './components';
-import {
-  Wrapper,
-  StyledTable,
-  Header,
-  Body,
-  Row,
-  TypeCell,
-  TimeCell,
-  WorkerCell,
-  CallCell,
-  SourceCell,
-  RateCell,
-  DurationCell,
-  TableWrapper,
-} from './mango.styled';
+import { useEffect, useRef, useState } from 'react';
+import { Filters, Table } from './components';
+import { Wrapper } from './mango.styled';
 
-interface IProps {}
-
-export const Mango: FC<IProps> = () => {
+export const Mango = () => {
   const filtersRef = useRef<HTMLDivElement>(null);
   const [filtersHeight, setFiltersHeight] = useState<number>(0);
 
@@ -31,34 +15,7 @@ export const Mango: FC<IProps> = () => {
   return (
     <Wrapper>
       <Filters ref={filtersRef} />
-      <TableWrapper>
-        <StyledTable>
-          <Header offset={filtersHeight}>
-            <TypeCell>Тип</TypeCell>
-            <TimeCell>Время</TimeCell>
-            <WorkerCell>Сотрудник</WorkerCell>
-            <CallCell>Звонок</CallCell>
-            <SourceCell>Источник</SourceCell>
-            <RateCell>Оценка</RateCell>
-            <DurationCell>Длительность</DurationCell>
-          </Header>
-          <Body>
-            {Array.from({ length: 20 })
-              .fill(0)
-              .map(() => (
-                <Row>
-                  <TypeCell>Тип Тип</TypeCell>
-                  <TimeCell>Время Время</TimeCell>
-                  <WorkerCell>Сотрудник Сотрудник</WorkerCell>
-                  <CallCell>Звонок Звонок</CallCell>
-                  <SourceCell>Источник Источник</SourceCell>
-                  <RateCell>Оценка Оценка</RateCell>
-                  <DurationCell>Длительность Длительность</DurationCell>
-                </Row>
-              ))}
-          </Body>
-        </StyledTable>
-      </TableWrapper>
+      <Table filtersHeight={filtersHeight} />
     </Wrapper>
   );
 };
