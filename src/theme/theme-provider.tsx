@@ -1,4 +1,11 @@
-import { createContext, FC, ReactNode, useContext, useState } from 'react';
+import {
+  createContext,
+  FC,
+  PropsWithChildren,
+  ReactNode,
+  useContext,
+  useState,
+} from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../globalStyles';
 import { darkTheme, lightTheme } from './theme';
@@ -10,17 +17,13 @@ interface IThemeContextProps {
   theme: ThemeType;
 }
 
-interface IThemeProviderProps {
-  children: ReactNode;
-}
-
 const ThemeContext = createContext<IThemeContextProps>({ theme: 'light' });
 
 export const useTheme = () => {
   return useContext(ThemeContext);
 };
 
-export const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
+export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<ThemeType>('light');
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
 

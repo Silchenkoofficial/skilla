@@ -1,3 +1,4 @@
 import { Player } from './player';
+import { Status } from './status';
 
-export { Player };
+export { Status, Player };

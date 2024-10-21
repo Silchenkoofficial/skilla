@@ -1,25 +1,34 @@
-export const GetList = async () => {
-  const response = await fetch('https://api.skilla.ru/mango/getList', {
-    method: 'POST',
-    headers: {
-      Authorization: 'Bearer testtoken',
-    },
-  });
+import { IParams } from '@/types';
+import { prepareQueryParams } from '@/utils';
 
-  return response.json();
-};
-
-export const GetRecord = async (recordId: string, partnership_id: string) => {
+export const GetList = async (params?: IParams) => {
   const response = await fetch(
-    `https://api.skilla.ru/mango/getRecord/?record=${recordId}&partnership_id=${partnership_id}`,
+    'https://api.skilla.ru/mango/getList' +
+      (params ? '?' + prepareQueryParams(params) : ''),
     {
       method: 'POST',
       headers: {
         Authorization: 'Bearer testtoken',
-        'Content-Type': 'audio/mpeg, audio/x-mpeg, audio/x-mpeg-3, audio/mpeg3',
       },
     }
   );
 
   return response.json();
+};
+
+export const GetRecord = async (params?: IParams) => {
+  const response = await fetch(
+    'https://api.skilla.ru/mango/getRecord/' +
+      (params ? '?' + prepareQueryParams(params) : ''),
+    {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer testtoken',
+        'Content-Type': 'audio/mpeg, audio/x-mpeg, audio/x-mpeg-3, audio/mpeg3',
+        'Content-Transfer-Encoding': 'binary',
+      },
+    }
+  );
+
+  return response.blob();
 };

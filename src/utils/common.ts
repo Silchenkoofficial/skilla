@@ -62,3 +62,64 @@ export const getRandomValue = <T>(array: T[]): T | undefined => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 };
+
+/**
+ * Удаляет все свойства с null, undefined или пустыми значениями из объекта и его вложенных объектов.
+ *
+ * @param {Object} params - Объект с параметрами, из которого будут удалены ненужные значения.
+ * @returns {Object} - Новый объект с удалёнными свойствами, содержащими null, undefined или пустые значения.
+ *
+ * @example
+ * const cleanedParams = killNulls({
+ *   a: null,
+ *   b: 'value',
+ *   c: undefined,
+ *   d: '',
+ *   e: { f: 'test', g: null },
+ *   h: [1, null, { i: '' }]
+ * });
+ * console.log(cleanedParams); // { b: 'value', e: { f: 'test' }, h: [1] }
+ */
+export const killNulls = (params: {
+  [key: string]: any;
+}): { [key: string]: any } => {
+  const formattedParams = { ...params };
+
+  for (const key in formattedParams) {
+    if (
+      formattedParams[key] === null ||
+      formattedParams[key] === undefined ||
+      formattedParams[key] === ''
+    ) {
+      delete formattedParams[key];
+      continue;
+    }
+
+    if (typeof formattedParams[key] === 'object') {
+      if (Array.isArray(formattedParams[key])) {
+        formattedParams[key] = formattedParams[key]
+          .map((item: any) =>
+            typeof item === 'object' ? killNulls(item) : item
+          )
+          .filter(
+            (item: any) =>
+              item !== null &&
+              item !== '' &&
+              (typeof item !== 'object' || Object.keys(item).length)
+          );
+
+        if (formattedParams[key].length === 0) {
+          delete formattedParams[key];
+        }
+      } else {
+        formattedParams[key] = killNulls(formattedParams[key]);
+
+        if (Object.keys(formattedParams[key]).length === 0) {
+          delete formattedParams[key];
+        }
+      }
+    }
+  }
+
+  return formattedParams;
+};

@@ -9,8 +9,8 @@ export const TableWrapper = styled.div`
 
 export const StyledTable = styled.div`
   width: 100%;
-  border-radius: 8px;
   background-color: #fff;
+  border-radius: 8px;
 `;
 
 export const Body = styled.div`
@@ -18,7 +18,7 @@ export const Body = styled.div`
   overflow-x: auto;
 `;
 
-export const Cell = styled.div<{ red?: boolean }>`
+export const Cell = styled.div<{ red?: boolean; active?: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,8 @@ export const Cell = styled.div<{ red?: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: ${({ theme, red }) => (red ? theme.red : theme.text)};
+  color: ${({ theme, active, red }) =>
+    red ? theme.red : active ? theme.accent : theme.text};
 
   &:nth-child(1) {
     max-width: 54px; /* Тип */
@@ -98,16 +99,26 @@ export const CallCount = styled.div`
 export const Header = styled(TableRow)<{ offset: number }>`
   position: sticky;
   top: calc(-80px + ${({ offset }) => offset}px);
-  z-index: 10;
-
-  & > div {
-    opacity: 0.87;
-    color: ${({ theme }) => theme.textSecondary};
-    font-size: 14px;
-    font-weight: 400;
-  }
+  z-index: 9;
 
   &:hover {
     background-color: inherit;
+  }
+`;
+
+export const HeaderCell = styled(Cell)<{ onClick?: () => void }>`
+  flex-direction: row;
+  align-items: center;
+  opacity: 0.87;
+  font-size: 14px;
+  font-weight: 400;
+  color: ${({ theme, active, red }) =>
+    red ? theme.red : active ? theme.accent : theme.textSecondary};
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : 'auto')};
+
+  &:nth-child(7) {
+    max-width: 352px;
+    align-items: center;
+    justify-content: flex-end;
   }
 `;

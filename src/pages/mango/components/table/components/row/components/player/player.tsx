@@ -1,4 +1,5 @@
-import { FC, memo, useLayoutEffect, useRef, useState } from 'react';
+import { FC, memo, useRef, useState } from 'react';
+import { useStore } from '@/hooks';
 import { formatTimeFromSeconds } from '@/utils';
 import {
   Control,
@@ -11,7 +12,6 @@ import DownloadIcon from '@/assets/icons/download.svg?react';
 import PlayIcon from '@/assets/icons/play.svg?react';
 import PauseIcon from '@/assets/icons/pause.svg?react';
 import CrossIcon from '@/assets/icons/cross.svg?react';
-import { useStore } from '@/hooks';
 
 interface IProps {
   duration: number;
@@ -20,6 +20,11 @@ interface IProps {
   isShow: boolean;
 }
 
+/**
+ * К сожалению, появились трудности с получение записи с сервера. Через Postman все ок, через браузер ни в какую
+ * не хочет возвращаться. Кидает 405 ошибку, что метод POST не разрешен и необходимо использовать OPTIONS.
+ * Поэтому реализован только визуал.
+ */
 export const Player: FC<IProps> = memo(
   ({ duration, recordId, partnershipId, isShow }) => {
     const { getRecord } = useStore();
@@ -29,8 +34,10 @@ export const Player: FC<IProps> = memo(
 
     const handlePlay = () => {
       if (!record) {
-        getRecord(recordId, partnershipId).then(console.log);
+        getRecord(recordId, partnershipId).then(setRecord);
       }
+
+      setIsPlaying(prevState => !prevState);
     };
 
     return (

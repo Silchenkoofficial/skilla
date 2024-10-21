@@ -1,15 +1,15 @@
 import { FC, useMemo, useState } from 'react';
 import { formatPhoneNumber, getRandomValue, getTime } from '@/utils';
-import { Player } from './components';
-import { Cell, TableRow } from '../../table.styled';
+import { IData } from '@/types';
+import { Status, Player } from './components';
+import { StatusType } from './components/status/status.styled';
 import { ArrowIcon } from './row.styled';
+import { Cell, TableRow } from '../../table.styled';
 import noavatar from '@/assets/icons/noavatar.svg';
 import Arrow from '@/assets/icons/arrow.svg?react';
-import { Status } from './components/status';
-import { StatusType } from './components/status/status.styled';
 
 interface IProps {
-  callData: any;
+  callData: IData;
 }
 
 export const Row: FC<IProps> = ({ callData }) => {

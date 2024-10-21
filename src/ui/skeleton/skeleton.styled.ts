@@ -14,13 +14,13 @@ export const SkeletonWrapper = styled.div<{
   opacity?: number;
 }>`
   display: inline-block;
-  position: ${props => (props.overlay ? 'absolute' : 'relative')};
+  position: ${({ overlay }) => (overlay ? 'absolute' : 'relative')};
   overflow: hidden;
-  background-color: ${props => (props.overlay ? 'transparent' : '#f2f5f8')};
-  width: ${props => props.width || (props.overlay ? '100%' : 'auto')};
-  height: ${props => props.height || (props.overlay ? '100%' : '32px')};
-  border-radius: ${props =>
-    props.borderRadius === 'full' ? 9999 : props.borderRadius || 4}px;
+  background-color: ${({ overlay }) => (overlay ? 'transparent' : '#f2f5f8')};
+  width: ${({ overlay, width }) => width || (overlay ? '100%' : 'auto')};
+  height: ${({ height, overlay }) => height || (overlay ? '100%' : '32px')};
+  border-radius: ${({ borderRadius }) =>
+    borderRadius === 'full' ? 9999 : borderRadius || 4}px;
 
   &::after {
     content: '';

@@ -1,3 +1,4 @@
+import { Dropdown } from './dropdown';
 import { Skeleton } from './skeleton';
 
-export { Skeleton };
+export { Dropdown, Skeleton };

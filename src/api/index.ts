@@ -1,3 +1,3 @@
-import { GetList } from './requests/requests';
+import { GetList, GetRecord } from './requests/requests';
 
-export { GetList };
+export { GetList, GetRecord };

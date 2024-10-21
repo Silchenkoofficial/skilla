@@ -1,13 +1,16 @@
-import { ThemeProvider } from './theme';
+import { StoreProvider } from './store';
 import { AppLayout } from './layouts';
 import { Mango } from './pages';
+import { ThemeProvider } from './theme';
 
 export const App = () => {
   return (
     <ThemeProvider>
-      <AppLayout>
-        <Mango />
-      </AppLayout>
+      <StoreProvider>
+        <AppLayout>
+          <Mango />
+        </AppLayout>
+      </StoreProvider>
     </ThemeProvider>
   );
 };

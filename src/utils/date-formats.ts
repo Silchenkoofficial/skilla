@@ -61,7 +61,7 @@ export const formatTimeFromSeconds = (seconds: number): string => {
  * formatDate("2024-01-01T00:00:00");
  */
 
-export const formatDate = (dateString: string): string => {
+export const getReadableDate = (dateString: string): string => {
   const date = new Date(dateString);
   const today = new Date();
   const yesterday = new Date(today);
@@ -81,4 +81,21 @@ export const formatDate = (dateString: string): string => {
     year: 'numeric',
   };
   return date.toLocaleDateString('ru-RU', options);
+};
+
+/**
+ * Форматирует дату в строку формата YYYY-MM-DD.
+ *
+ * @param {Date} date - Объект даты, который необходимо отформатировать.
+ * @returns {string} - Дата в формате YYYY-MM-DD.
+ *
+ * @example
+ * const formattedDate = formatDate(new Date('2024-10-22'));
+ * console.log(formattedDate); // "2024-10-22"
+ */
+export const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
